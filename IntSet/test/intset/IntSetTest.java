@@ -19,7 +19,7 @@ public class IntSetTest {
 
     private static IntSet instance = null;
     private static final int TEST_CAPACITY = 7;
-    private static int testValue;
+    private static final int TEST_VALUE = 243;
     private static int testCount = 0;
     private static int[] testSet = new int[TEST_CAPACITY];
 
@@ -70,33 +70,35 @@ public class IntSetTest {
     @Test
     public void testHas() {
         System.out.println("has");
-        
-        boolean expResult = false;
-        boolean result = instance.has(testValue);
-        assertEquals(expResult, result);
-        
-//      expResult = false;
-        result = instance.has(testValue+1);
-        assertEquals(expResult, result);
-        
-        instance.add(testValue);
-        
-        expResult = true;
-        result = instance.has(testValue);
-        assertEquals(expResult, result);
-        
+        boolean expResult;
+        boolean result;
+
         expResult = false;
-        result = instance.has(testValue+1);
+        result = instance.has(TEST_VALUE);
         assertEquals(expResult, result);
-        
-        instance.add(testValue+1);
-        
+
+//      expResult = false;
+        result = instance.has(TEST_VALUE + 1);
+        assertEquals(expResult, result);
+
+        instance.add(TEST_VALUE);
+
         expResult = true;
-        result = instance.has(testValue);
+        result = instance.has(TEST_VALUE);
         assertEquals(expResult, result);
-        
- //     expResult = true;
-        result = instance.has(testValue+1);
+
+        expResult = false;
+        result = instance.has(TEST_VALUE + 1);
+        assertEquals(expResult, result);
+
+        instance.add(TEST_VALUE + 1);
+
+        expResult = true;
+        result = instance.has(TEST_VALUE);
+        assertEquals(expResult, result);
+
+        //     expResult = true;
+        result = instance.has(TEST_VALUE + 1);
         assertEquals(expResult, result);
     }
 
@@ -107,68 +109,49 @@ public class IntSetTest {
     public void testAdd() {
         System.out.println("add");
         assert instance.getCount() < instance.getCapacity();
-        int testValue = 342;
-        boolean testHad = instance.has(testValue);
-        int preCount = instance.getCount();
-        instance.add(testValue);
-        assertTrue(instance.has(testValue));
-        if (!testHad) {
-            assertEquals(preCount + 1, instance.getCount());
-            testSet[testCount]=testValue;
-            testCount++;
-        } else {
-            assertEquals(preCount, instance.getCount());
-        }
-        
+        int testValue;
+        boolean testHad;
+        int preCount;
+
+        testValue = TEST_VALUE;
         testHad = instance.has(testValue);
+        assertEquals(false, testHad);
         preCount = instance.getCount();
         instance.add(testValue);
         assertTrue(instance.has(testValue));
-        if (!testHad) {
-            assertEquals(preCount + 1, instance.getCount());
-            testSet[testCount]=testValue;
-            testCount++;
-        } else {
-            assertEquals(preCount, instance.getCount());
-        }
-        
-        testValue = 243;
+        assertEquals(preCount + 1, instance.getCount());
+
         testHad = instance.has(testValue);
+        assertEquals(true, testHad);
         preCount = instance.getCount();
         instance.add(testValue);
         assertTrue(instance.has(testValue));
-        if (!testHad) {
-            assertEquals(preCount + 1, instance.getCount());
-            testSet[testCount]=testValue;
-            testCount++;
-        } else {
-            assertEquals(preCount, instance.getCount());
-        }
+        assertEquals(preCount, instance.getCount());
+
+        testValue = 943;
         
+        testHad = instance.has(testValue);
+        assertEquals(false, testHad);
+        preCount = instance.getCount();
+        instance.add(testValue);
+        assertTrue(instance.has(testValue));
+        assertEquals(preCount + 1, instance.getCount());
+
         testValue = 28365;
-        testHad = instance.has(testValue);
-        preCount = instance.getCount();
-        instance.add(testValue);
-        assertTrue(instance.has(testValue));
-        if (!testHad) {
-            assertEquals(preCount + 1, instance.getCount());
-            testSet[testCount]=testValue;
-            testCount++;
-        } else {
-            assertEquals(preCount, instance.getCount());
-        }
         
         testHad = instance.has(testValue);
+        assertEquals(false, testHad);
         preCount = instance.getCount();
         instance.add(testValue);
         assertTrue(instance.has(testValue));
-        if (!testHad) {
-            assertEquals(preCount + 1, instance.getCount());
-            testSet[testCount]=testValue;
-            testCount++;
-        } else {
-            assertEquals(preCount, instance.getCount());
-        }
+        assertEquals(preCount + 1, instance.getCount());
+
+        testHad = instance.has(testValue);
+        assertEquals(true, testHad);
+        preCount = instance.getCount();
+        instance.add(testValue);
+        assertTrue(instance.has(testValue));
+        assertEquals(preCount, instance.getCount());
     }
 
     /**
@@ -234,7 +217,7 @@ public class IntSetTest {
     @Test
     public void testGetCount() {
         System.out.println("getCount");
-        int expResult = testCount;
+        int expResult = 0;
         int result = instance.getCount();
         assertEquals(expResult, result);
     }
