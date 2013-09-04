@@ -48,6 +48,7 @@ public class IntSetTest {
     @Test
     public void testIntSet() {
         System.out.println("constructor");
+        instance = null;
         assert TEST_CAPACITY >= 0;
         instance = new IntSet(TEST_CAPACITY);
         assertEquals(0, instance.getCount());
