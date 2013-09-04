@@ -158,7 +158,7 @@ public class IntSetTest {
     public void testRemove() {
         System.out.println("remove");
         int value = 0;
-        IntSet instance = new IntSet();
+        instance = new IntSet(TEST_CAPACITY);
         instance.remove(value);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
