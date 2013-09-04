@@ -43,6 +43,7 @@ public class IntSetTest {
 
     @Before
     public void setUp() {
+        instance = new IntSet(TEST_CAPACITY);
     }
 
     @After
@@ -69,14 +70,33 @@ public class IntSetTest {
     @Test
     public void testHas() {
         System.out.println("has");
+        
         boolean expResult = false;
-        for (int i = 0; i < testCount; i++) {
-            if (testSet[i] == testValue) {
-                expResult = true;
-                break;
-            }
-        }
         boolean result = instance.has(testValue);
+        assertEquals(expResult, result);
+        
+//      expResult = false;
+        result = instance.has(testValue+1);
+        assertEquals(expResult, result);
+        
+        instance.add(testValue);
+        
+        expResult = true;
+        result = instance.has(testValue);
+        assertEquals(expResult, result);
+        
+        expResult = false;
+        result = instance.has(testValue+1);
+        assertEquals(expResult, result);
+        
+        instance.add(testValue+1);
+        
+        expResult = true;
+        result = instance.has(testValue);
+        assertEquals(expResult, result);
+        
+ //     expResult = true;
+        result = instance.has(testValue+1);
         assertEquals(expResult, result);
     }
 
