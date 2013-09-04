@@ -16,25 +16,16 @@ import static org.junit.Assert.*;
  * @author Rik Schaaf
  */
 public class IntSetTest {
-
-    private static IntSet instance = null;
+    private IntSet instance;
     private static final int TEST_CAPACITY = 7;
     private static final int TEST_VALUE = 243;
-    private static int testCount = 0;
-    private static int[] testSet = new int[TEST_CAPACITY];
 
     public IntSetTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        System.out.println("constructor");
-        int testCapacity = TEST_CAPACITY;
-        assert testCapacity >= 0;
-        instance = new IntSet(testCapacity);
-        assertEquals(0, instance.getCount());
-        assertEquals(testCapacity, instance.getCapacity());
-
+        
     }
 
     @AfterClass
@@ -53,15 +44,25 @@ public class IntSetTest {
     /**
      * Test of isEmpty method, of class IntSet.
      */
+    
+    @Test
+    public void testIntSet() {
+        System.out.println("constructor");
+        assert TEST_CAPACITY >= 0;
+        instance = new IntSet(TEST_CAPACITY);
+        assertEquals(0, instance.getCount());
+        assertEquals(TEST_CAPACITY, instance.getCapacity());
+    }
+    
     @Test
     public void testIsEmpty() {
-        /*System.out.println("isEmpty");
-         * IntSet instance = null;
-         * boolean expResult = false;
-         * boolean result = instance.isEmpty();
-         * assertEquals(expResult, result);
-         * // TODO review the generated test code and remove the default call to fail.
-         * fail("The test case is a prototype.");*/
+//        System.out.println("isEmpty");
+//        IntSet instance = null;
+//        boolean expResult = false;
+//        boolean result = instance.isEmpty();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -97,7 +98,7 @@ public class IntSetTest {
         result = instance.has(TEST_VALUE);
         assertEquals(expResult, result);
 
-        //     expResult = true;
+//      expResult = true;
         result = instance.has(TEST_VALUE + 1);
         assertEquals(expResult, result);
     }
@@ -129,7 +130,7 @@ public class IntSetTest {
         assertEquals(preCount, instance.getCount());
 
         testValue = 943;
-        
+
         testHad = instance.has(testValue);
         assertEquals(false, testHad);
         preCount = instance.getCount();
@@ -138,7 +139,7 @@ public class IntSetTest {
         assertEquals(preCount + 1, instance.getCount());
 
         testValue = 28365;
-        
+
         testHad = instance.has(testValue);
         assertEquals(false, testHad);
         preCount = instance.getCount();
@@ -163,8 +164,6 @@ public class IntSetTest {
         int value = 0;
         instance = new IntSet(TEST_CAPACITY);
         instance.remove(value);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -217,8 +216,35 @@ public class IntSetTest {
     @Test
     public void testGetCount() {
         System.out.println("getCount");
-        int expResult = 0;
-        int result = instance.getCount();
+        int expResult;
+        int result;
+        
+        expResult = 0;
+        result = instance.getCount();
+        assertEquals(expResult, result);
+        
+        instance.add(TEST_VALUE);
+        
+        expResult = 1;
+        result = instance.getCount();
+        assertEquals(expResult, result);
+        
+        instance.add(TEST_VALUE);
+        
+        expResult = 1;
+        result = instance.getCount();
+        assertEquals(expResult, result);
+        
+        instance.add(TEST_VALUE+1);
+        
+        expResult = 2;
+        result = instance.getCount();
+        assertEquals(expResult, result);
+        
+        instance.add(TEST_VALUE+1);
+        
+        expResult = 2;
+        result = instance.getCount();
         assertEquals(expResult, result);
     }
 
