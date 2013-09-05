@@ -172,7 +172,7 @@ public class IntSetTest {
     public void testGetArray(){
         System.out.println("getArray()");
         
-        // set = [], count = 0;
+        // set = []; count = 0;
         // kijk of een lege lijst 0 lengte heeft
         assertEquals(0, intSet.getArray().length);
         
@@ -202,8 +202,8 @@ public class IntSetTest {
         intSet.add(28);
         intSet.add(58);
         intSet.add(23);
-        //      intSet: set = [25, 28, 58, 23], count = 4;
-        // otherIntSet: set = [25, 37, 58],     count = 3;
+        //      intSet: set = [25, 28, 58, 23]; count = 4;
+        // otherIntSet: set = [25, 37, 58];     count = 3;
         intersectList = intSet.intersect(otherIntSet);
         assertEquals(2, intersectList.getCount());
         assertTrue(intersectList.has(25));
@@ -214,8 +214,8 @@ public class IntSetTest {
         }
         
         otherIntSet = new IntSet(5);
-        //      intSet: set = [25, 28, 58, 23], count = 4;
-        // otherIntSet: set = [],               count = 0;
+        //      intSet: set = [25, 28, 58, 23]; count = 4;
+        // otherIntSet: set = [];               count = 0;
         // kijk of intersect het kan hebben als other leeg is
         intersectList = intSet.intersect(otherIntSet);
         assertEquals(0, intersectList.getCount());
@@ -224,10 +224,101 @@ public class IntSetTest {
         otherIntSet.add(25);
         otherIntSet.add(37);
         otherIntSet.add(58);
-        //      intSet: set = [],               count = 0;
-        // otherIntSet: set = [25, 37, 58],     count = 3;
+        //      intSet: set = [];               count = 0;
+        // otherIntSet: set = [25, 37, 58];     count = 3;
         // kijk of intersect het kan hebben als intSet zelf leeg is
         intersectList = intSet.intersect(otherIntSet);
         assertEquals(0, intersectList.getCount());
+    }
+    
+    
+    /**
+     * Returns the union of this set and another set.
+     *
+     * @param other the set to union this set with
+     * @return the union
+     * @pre other != null
+     * @post forall int v: has(v) implies return.has(v)
+     * @post forall int v: other.has(v) implies return.has(v)
+     * @post forall int v: return.has(v) implies (has(v) or other.has(v))
+     */
+    @Test
+    public void testUnion(){
+        System.out.println("union(IntSet other)");
+        
+        IntSet unionList;
+        IntSet otherIntSet = new IntSet(5);
+                
+        otherIntSet.add(25);
+        otherIntSet.add(37);
+        otherIntSet.add(58);
+        intSet.add(25);
+        intSet.add(28);
+        intSet.add(58);
+        intSet.add(23);
+        //      intSet: set = [25, 28, 58, 23]; count = 4;
+        // otherIntSet: set = [25, 37, 58];     count = 3;
+        // kijken of hij union goed doet
+        unionList = intSet.union(otherIntSet);
+        assertEquals(5, unionList.getCount());
+        assertTrue(unionList.has(25));
+        assertTrue(unionList.has(37));
+        assertTrue(unionList.has(58));
+        assertTrue(unionList.has(28));
+        assertTrue(unionList.has(23));
+        
+        for (int i = 0; i < intSet.getCount(); i++) {
+            assertTrue(unionList.has(intSet.getArray()[i]));
+        }
+        for (int i = 0; i < otherIntSet.getCount(); i++) {
+            assertTrue(unionList.has(otherIntSet.getArray()[i]));
+        }
+        for (int i = 0; i < unionList.getCount(); i++) {
+            assertTrue(intSet.has(unionList.getArray()[i]) || otherIntSet.has(unionList.getArray()[i]));
+        }
+        
+        otherIntSet = new IntSet(5);
+        //      intSet: set = [25, 28, 58, 23]; count = 4;
+        // otherIntSet: set = [0];              count = 0;
+        // kijken of hij union het nog doet als other een lege lijst is
+        unionList = intSet.union(otherIntSet);
+        assertEquals(4, unionList.getCount());
+        assertTrue(unionList.has(25));
+        assertTrue(unionList.has(58));
+        assertTrue(unionList.has(28));
+        assertTrue(unionList.has(23));
+        
+        for (int i = 0; i < intSet.getCount(); i++) {
+            assertTrue(unionList.has(intSet.getArray()[i]));
+        }
+        for (int i = 0; i < otherIntSet.getCount(); i++) {
+            assertTrue(unionList.has(otherIntSet.getArray()[i]));
+        }
+        for (int i = 0; i < unionList.getCount(); i++) {
+            assertTrue(intSet.has(unionList.getArray()[i]) || otherIntSet.has(unionList.getArray()[i]));
+        }
+        
+        intSet = new IntSet(CAPASITY);
+        otherIntSet.add(25);
+        otherIntSet.add(37);
+        otherIntSet.add(58);
+        //      intSet: set = [];               count = 0;
+        // otherIntSet: set = [25, 37, 58];     count = 3;
+        // kijken of hij union het nog doet als hijzelf een lege lijst is
+        unionList = intSet.union(otherIntSet);
+        assertEquals(3, unionList.getCount());
+        assertTrue(unionList.has(25));
+        assertTrue(unionList.has(37));
+        assertTrue(unionList.has(58));
+        
+        for (int i = 0; i < intSet.getCount(); i++) {
+            assertTrue(unionList.has(intSet.getArray()[i]));
+        }
+        for (int i = 0; i < otherIntSet.getCount(); i++) {
+            assertTrue(unionList.has(otherIntSet.getArray()[i]));
+        }
+        for (int i = 0; i < unionList.getCount(); i++) {
+            assertTrue(intSet.has(unionList.getArray()[i]) || otherIntSet.has(unionList.getArray()[i]));
+        }
     }
 }
