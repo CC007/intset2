@@ -8,9 +8,9 @@ package intset;
  */
 public class IntSet {
 
-    private int capacity;
-    private int count;
-    private int[] set;
+    int[] set;
+    int capacity;
+    int count = 0;
 
     /**
      * Creates a new set with 0 elements.
@@ -22,8 +22,7 @@ public class IntSet {
      */
     public IntSet(int capacity) {
         this.capacity = capacity;
-        this.count = 0;
-        this.set = new int[capacity];
+        set = new int[this.capacity];
     }
 
     /**
@@ -32,7 +31,7 @@ public class IntSet {
      * @return getCount() == 0
      */
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return getCount() == 0;
     }
 
     /**
@@ -41,7 +40,7 @@ public class IntSet {
      * @return exists int v in getArray() such that v == value
      */
     public boolean has(int value) {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < getCount(); i++) {
             if (set[i] == value) {
                 return true;
             }
@@ -52,15 +51,14 @@ public class IntSet {
     /**
      * Adds a value to the set.
      *
-     * @pre getCount() < getCapacity() @post has(
-     * value)
-     * @post !this@pre.has(value) implies (getCount() == this@pre.getCount() +
-     * 1)
+     * @pre getCount() < getCapacity() @post has( value) @post
+     * !this@pre.has(value ) implies (getCount() == this@pre.getCount() + 1)
      * @post this@pre.has(value) implies (getCount() == this@pre.getCount())
      */
     public void add(int value) {
-        if(!has(value)){
-            set[count++]= value;
+        if (!has(value)) {
+            set[count] = value;
+            count++;
         }
     }
 
@@ -72,7 +70,20 @@ public class IntSet {
      * @post !this@pre.has(value) implies (getCount() == this@pre.getCount())
      */
     public void remove(int value) {
-        throw new UnsupportedOperationException("not yet implemented");
+        if (has(value)) {
+            int elementPos = 0;
+            for (int i = 0; i < getCount(); i++) {
+                if (set[i] == value) {
+                    elementPos = i;
+                    break;
+                }
+            }
+            for (int i = elementPos; i < getCount() - 1; i++) {
+                set[i] = set[i + 1];
+            }
+            count--;
+        }
+
     }
 
     /**
@@ -85,7 +96,20 @@ public class IntSet {
      * @post forall int v: return.has(v) implies (has(v) and other.has(v))
      */
     public IntSet intersect(IntSet other) {
-        throw new UnsupportedOperationException("not yet implemented");
+        IntSet returnIntSet;
+        int hits=0;
+        for (int i = 0; i < getCount(); i++) {
+            if (other.has(set[i])) {
+                hits++;
+            }
+        }
+        returnIntSet = new IntSet(hits);
+        for (int i = 0; i < 10; i++) {
+            if (other.has(set[i])) {
+                returnIntSet.add(set[i]);
+            }
+        }
+        return returnIntSet;
     }
 
     /**
@@ -109,7 +133,9 @@ public class IntSet {
      * @post forall int v in return: has(v)
      */
     public int[] getArray() {
-        throw new UnsupportedOperationException("not yet implemented");
+        int[] returnArray = new int[getCount()];
+        System.arraycopy(set, 0, returnArray, 0, getCount());
+        return returnArray;
     }
 
     /**
@@ -131,6 +157,7 @@ public class IntSet {
      * as {}, a singleton set as {x}, a set with more than one element like {x,
      * y, z}.
      */
+    @Override
     public String toString() {
         throw new UnsupportedOperationException("not yet implemented");
     }
