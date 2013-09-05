@@ -134,9 +134,7 @@ public class IntSet {
             returnSet.add(getArray()[i]);
         }
         for (int i = 0; i < other.getCount(); i++) {
-            if (!has(other.getArray()[i])) {
-                returnSet.add(other.getArray()[i]);
-            }
+            returnSet.add(other.getArray()[i]);
         }
         return returnSet;
     }
