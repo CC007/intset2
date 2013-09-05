@@ -96,14 +96,14 @@ public class IntSet {
      */
     public IntSet intersect(IntSet other) {
         IntSet returnIntSet;
-        int hits=0;
+        int hits = 0;
         for (int i = 0; i < getCount(); i++) {
             if (other.has(set[i])) {
                 hits++;
             }
         }
         returnIntSet = new IntSet(hits);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < getCount(); i++) {
             if (other.has(set[i])) {
                 returnIntSet.add(set[i]);
             }
@@ -122,7 +122,23 @@ public class IntSet {
      * @post forall int v: return.has(v) implies (has(v) or other.has(v))
      */
     public IntSet union(IntSet other) {
-        throw new UnsupportedOperationException("not yet implemented");
+        int hits = getCount();
+        IntSet returnSet;
+        for (int i = 0; i < other.getCount(); i++) {
+            if (!has(other.getArray()[i])) {
+                hits++;
+            }
+        }
+        returnSet = new IntSet(hits);
+        for (int i = 0; i < getCount(); i++) {
+            returnSet.add(getArray()[i]);
+        }
+        for (int i = 0; i < other.getCount(); i++) {
+            if (!has(other.getArray()[i])) {
+                returnSet.add(other.getArray()[i]);
+            }
+        }
+        return returnSet;
     }
 
     /**
