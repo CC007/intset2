@@ -56,8 +56,6 @@ public class IntSetTest {
         
         // set = []; count = 0;
         // voeg een element toe
-        
-
         intSet.add(254);
         assertTrue(intSet.has(254));
         assertEquals(1, intSet.getCount());
