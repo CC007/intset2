@@ -22,6 +22,16 @@ public class IntSetTest {
     public void testGetCount() {
         System.out.println("getCount()");
         assertEquals(0, intSet.getCount());
+        
+        intSet.add(45);        
+        assertEquals(1, intSet.getCount());
+        // set = [45]; count = 1;
+        
+        intSet.add(23);
+        intSet.add(64);
+        intSet.add(12);
+        assertEquals(4, intSet.getCount());
+        // set = [45, 23, 64, 12]; count = 4;
     }
 
     @Test
@@ -44,9 +54,17 @@ public class IntSetTest {
         assertTrue(!intSet.has(234));
         assertTrue(!intSet.has(0));
 
-        intSet.add(45);
-
+        intSet.add(45);        
         assertTrue(intSet.has(45));
+        // set = [45]; count = 1;
+        
+        intSet.add(23);
+        intSet.add(64);
+        intSet.add(12);
+        assertTrue(intSet.has(23));
+        assertTrue(intSet.has(64));
+        assertTrue(intSet.has(12));
+        // set = [45, 23, 64, 12]; count = 4;
     }
 
     @Test
