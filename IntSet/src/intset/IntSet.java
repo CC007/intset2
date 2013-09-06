@@ -56,8 +56,9 @@ public class IntSet {
     /**
      * Adds a value to the set.
      *
-     * @pre getCount() < getCapacity() @post has( value) @post
-     * !this@pre.has(value ) implies (getCount() == this@pre.getCount() + 1)
+     * @pre getCount() < getCapacity() 
+     * @post has( value) 
+     * @post !this@pre.has(value ) implies (getCount() == this@pre.getCount() + 1)
      * @post this@pre.has(value) implies (getCount() == this@pre.getCount())
      */
     public void add(int value) {

@@ -412,16 +412,6 @@ public class IntSetTest {
 
     }
 
-    /**
-     * Returns the symmetric difference of this set and another set.
-     *
-     * @param other the set to symmetric difference this set with
-     * @return the symmetric difference
-     * @pre other != null
-     * @post forall int v: !(has(v) and other.has(v)) and (has(v) or other.has(v)) implies return.has(v)
-     * @post forall int v: has(v) and result.has(v) implies !other.has(v)
-     * @post forall int v: other.has(v) and result.has(v) implies !has(v)
-     */
     @Test
     public void testSymmetricDifference() {
         System.out.println("symmetricDifference(IntSet other)");
